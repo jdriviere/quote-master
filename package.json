@@ -1,0 +1,28 @@
+{
+  "name": "express_app",
+  "version": "0.1.0",
+  "description": "A simple CRUD app using Node, Express, and Sparkle.CSS",
+  "main": "index.js",
+  "scripts": {
+    "server": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "J. Djimitry Riviere",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "express-flash-2": "^1.0.1",
+    "express-session": "^1.15.6",
+    "mongodb": "^3.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  },
+  "engines": {
+    "node": "8.11.x",
+    "npm": "6.1.x"
+  } 
+}
