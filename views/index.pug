@@ -1,0 +1,50 @@
+doctype html
+html(lang="en")
+head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible" content="ie=edge")
+    title QuoteMaster
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sparkle.css@1.9.5/dist/css/sparkle.min.css")
+
+body
+    div.wrapper
+        h1 QuoteMaster
+        p.text--subtext
+        |   *If you type 'JD Riviere' as the name of the quoter,
+        |   you can use these two buttons above to see what happens.
+
+        //- FLASH MESSAGE
+        if flash.info
+            .alert.alert--warning
+                p #{flash.info}
+
+        //- FORM
+        form(action="/quotes" method="POST")
+            .grid.grid--gutter
+                .column.column--fourth
+                    input.input(type="text" placeholder="Enter a Name" name="name" required)
+                .column.column--fourths
+                    input.input(type="text" placeholder="Enter a Quote" name="quote" required)
+            button(type="submit").button Submit
+    
+        //- ADD-ON OPTIONS
+        .buttons
+            button.button.button--info#update
+                i.fa.fa-file-o
+                |   &nbsp;Update One Quote With...!
+            button.button.button--danger#delete
+                i.fa.fa-trash-o
+                |   &nbsp;Delete Last Quote From...!
+        
+        each quote in quotes
+            blockquote.blockquote
+                p #{quote.quote}
+
+                .blockquote__footer
+                    p #{quote.name}
+        else
+            h4 No quotes found.
+    
+    //- SCRIPTS
+    script(src="main.js")
