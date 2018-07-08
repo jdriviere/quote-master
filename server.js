@@ -21,7 +21,7 @@ const MongoClient = require('mongodb').MongoClient;
 // =========================
 const app = express();
 const port = process.env.PORT || 3000;
-var db;
+let db;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -34,16 +34,14 @@ app.use(session({
 app.use(flash());
 app.use(express.static('public'));
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'pug');
 
 // =========================
 // DATABASE CONNECTION
 // =========================
 MongoClient.connect('mongodb://jdtest:abc123@ds129811.mlab.com:29811/quotes_crud', { useNewUrlParser: true }, (err, client) =>{
-    if (err) return console.log(err);
-    
+    if (err) return console.log(err);  
     db = client.db('quotes_crud');
-
     app.listen(port, () => {
         console.log(`Listening on port ${port}.`);
     });
@@ -56,22 +54,19 @@ MongoClient.connect('mongodb://jdtest:abc123@ds129811.mlab.com:29811/quotes_crud
 app.get('/', (req, res) => {
     db.collection('quotes').find().toArray((err, result) => {
         if (err) console.log(err);
-
-        res.render('index.ejs', { quotes: result });
+        res.render('index.pug', { quotes: result });
     });
 });
 
 app.post('/quotes', (req, res) => {
     const letters = /^[A-Za-z ]+$/;
-    const quoter = req.body.name;
+    const quoter = req.body.name.trim();
     
     if (quoter.match(letters)) {
         db.collection('quotes').save(req.body, (err, result) => {
             if (err) console.log(err);
-    
-            console.log('Quote was successfully saved to the database.');
-            
-            res.redirect('/');
+            console.log('Quote was successfully saved to the database.');   
+            res.redirect('/');   
         });
     } else {
         res.flash('info', 'The name of the quoter can only contain letters.');
@@ -93,7 +88,6 @@ app.put('/quotes', (req, res) => {
         },
         (err, result) => {
             if (err) return res.send(err);
-
             res.send(result);
         }
     );
@@ -104,7 +98,6 @@ app.delete('/quotes', (req, res) => {
         { name: req.body.name },
         (err, result) => {
             if (err) return res.send(500, err);
-
             res.send({ message: 'A quote from the Forgotten Prince was deleted!' });
         }
     );
