@@ -61,14 +61,21 @@ app.get('/', (req, res) => {
 
 app.post('/quotes', (req, res) => {
     const letters = /^[A-Za-z ]+$/;
+    const alphaNum = /^[A-Za-z0-9 ]+$/;
     const quoter = req.body.name.trim();
+    const phrase = req.body.quote.trim();
     
     if (quoter.match(letters)) {
-        db.collection('quotes').save(req.body, (err, result) => {
-            if (err) console.log(err);
-            console.log('Quote was successfully saved to the database.');   
-            res.redirect('/');   
-        });
+        if (phrase.match(alphaNum)) {
+            db.collection('quotes').save(req.body, (err, result) => {
+                if (err) console.log(err);
+                console.log('Quote was successfully saved to the database.');   
+                res.redirect('/');   
+            });
+        } else {
+            res.flash('info', 'The quote cannot be empty.');
+            res.redirect('/');
+        }
     } else {
         res.flash('info', 'The name of the quoter can only contain letters.');
         res.redirect('/');
