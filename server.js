@@ -61,7 +61,7 @@ app.get('/', (req, res) => {
 
 app.post('/quotes', (req, res) => {
     const letters = /^[A-Za-z ]+$/;
-    const alphaNum = /^[A-Za-z0-9 ]+$/;
+    const alphaNum = /^[A-Za-z0-9 .,!]+$/;
     const quoter = req.body.name.trim();
     const phrase = req.body.quote.trim();
     
