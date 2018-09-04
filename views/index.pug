@@ -5,35 +5,35 @@ head
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible" content="ie=edge")
     title QuoteMaster
-    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sparkle.css@1.9.5/dist/css/sparkle.min.css")
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sparkle.css@1.9.13/dist/css/sparkle.min.css")
 
 body
     div.wrapper
         h1 QuoteMaster
-        p.text--subtext
+        p.make-text-size6
         |   *If you type 'JD Riviere' as the name of the quoter,
         |   you can use these two buttons above to see what happens.
 
         //- FLASH MESSAGE
         if flash.info
-            .alert.alert--warning
+            .alert.make-warning
                 p #{flash.info}
 
         //- FORM
         form(action="/quotes" method="POST")
-            .grid.grid--gutter
-                .column.column--fourth
-                    input.input(type="text" placeholder="Enter a Name" name="name" required)
-                .column.column--fourths
-                    input.input(type="text" placeholder="Enter a Quote" name="quote" required)
+            .grid.make-gutters
+                .column.make-fourth
+                    input.input(type="text", placeholder="Enter a Name", name="name" required)
+                .column.make-fourths
+                    input.input(type="text", placeholder="Enter a Quote", name="quote" required)
             button(type="submit").button Submit
     
         //- ADD-ON OPTIONS
-        .buttons
-            button.button.button--info#update
+        .buttons.make-margin-30-vertical
+            button.button.make-info#update
                 i.fa.fa-file-o
                 |   &nbsp;Add Secret Quote
-            button.button.button--danger#delete
+            button.button.make-danger#delete
                 i.fa.fa-trash-o
                 |   &nbsp;Delete Secret Quote
         
@@ -41,8 +41,7 @@ body
             blockquote.blockquote
                 p #{quote.quote}
 
-                .blockquote__footer
-                    p #{quote.name}
+                footer.blockquote__footer #{quote.name}
         else
             h4 No quotes found.
     
