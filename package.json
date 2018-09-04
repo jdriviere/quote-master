@@ -1,5 +1,5 @@
 {
-  "name": "express_app",
+  "name": "quote-master",
   "version": "0.1.0",
   "description": "A simple CRUD app using Node, Express, and Sparkle.CSS",
   "main": "index.js",
