@@ -8,11 +8,11 @@ head
     link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sparkle.css@1.9.13/dist/css/sparkle.min.css")
 
 body
-    div.wrapper
+    div.wrapper.make-padding-30-top
         h1 QuoteMaster
         p.make-text-size6
         |   *If you type 'JD Riviere' as the name of the quoter,
-        |   you can use these two buttons above to see what happens.
+        |   you can use these two buttons below to see what happens.
 
         //- FLASH MESSAGE
         if flash.info
@@ -23,20 +23,30 @@ body
         form(action="/quotes" method="POST")
             .grid.make-gutters
                 .column.make-fourth
-                    input.input(type="text", placeholder="Enter a Name", name="name" required)
+                    label.label(for="name") Name:
+                    .form-group
+                        button.button(disabled)
+                            i.fa.fa-user
+                        input.input(type="text", id="name", name="name", required)
                 .column.make-fourths
-                    input.input(type="text", placeholder="Enter a Quote", name="quote" required)
+                    label.label(for="quote") Quote:
+                    .form-group
+                        button.button(disabled)
+                            i.fa.fa-question
+                        input.input(type="text", id="quote", name="quote", required)
             button(type="submit").button Submit
     
         //- ADD-ON OPTIONS
         .buttons.make-margin-30-vertical
             button.button.make-info#update
-                i.fa.fa-file-o
-                |   &nbsp;Add Secret Quote
+                i.fa.fa-plus
+                span.make-margin-10-left Add Secret Quote
             button.button.make-danger#delete
                 i.fa.fa-trash-o
-                |   &nbsp;Delete Secret Quote
+                span.make-margin-10-left Delete Secret Quote
         
+        //- QUOTE LIST
+        h3 Quotes
         each quote in quotes
             blockquote.blockquote
                 p #{quote.quote}
